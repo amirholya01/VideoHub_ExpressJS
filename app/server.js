@@ -40,7 +40,7 @@ module.exports = class Application{
             swaggerUI.setup(
                 swaggerJsDoc({
                     swaggerDefinition: {
-                        openapi: "1.0.0",
+                        openapi: "3.0.0",
                         info: {
                             title: "VideoHub",
                             version: "1.0.0",

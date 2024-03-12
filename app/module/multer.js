@@ -1,7 +1,16 @@
+// Import necessary modules
+
 const multer = require("multer");
 const path = require("path");
 const fs = require("fs");
 const createError = require("http-errors");
+
+
+/**
+ * Function to create directory structure for file uploads based on current date.
+ * @param {Object} req - Express request object
+ * @returns {string} - Directory path for file uploads
+ */
 function createRoute(req) {
     const date = new Date();
     const year = date.getFullYear().toString();
@@ -22,6 +31,8 @@ function createRoute(req) {
     fs.mkdirSync(directory, { recursive: true });
     return directory;
 }
+
+// Define storage configuration for multer
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
         if (file?.originalname) {
@@ -40,6 +51,14 @@ const storage = multer.diskStorage({
         cb(null, null);
     },
 });
+
+
+/**
+ * File filter function to allow specific image formats for upload.
+ * @param {Object} req - Express request object
+ * @param {Object} file - File object
+ * @param {function} cb - Callback function
+ */
 function fileFilter(req, file, cb) {
     const ext = path.extname(file.originalname);
     const mimetypes = [".jpg", ".jpeg", ".png", ".webp", ".gif"];
@@ -48,6 +67,15 @@ function fileFilter(req, file, cb) {
     }
     return cb(createError.BadRequest("The format of the image sent is not correct"));
 }
+
+
+
+/**
+ * Video filter function to allow specific video formats for upload.
+ * @param {Object} req - Express request object
+ * @param {Object} file - File object
+ * @param {function} cb - Callback function
+ */
 function videoFilter(req, file, cb) {
     const ext = path.extname(file.originalname);
     const mimetypes = [".mp4", ".mpg", ".mov", ".avi", ".mkv"];
@@ -56,10 +84,16 @@ function videoFilter(req, file, cb) {
     }
     return cb(createError.BadRequest("The video format sent is not correct"));
 }
-const pictureMaxSize = 1 * 1000 * 1000;//300MB
+
+// Define maximum file sizes for picture and video uploads
+const pictureMaxSize = 1 * 1000 * 1000;//1MB
 const videoMaxSize = 300 * 1000 * 1000;//300MB
+
+// Configure multer middleware for file and video uploads
 const uploadFile = multer({ storage, fileFilter, limits: { fileSize: pictureMaxSize } });
 const uploadVideo = multer({ storage, videoFilter, limits: { fileSize: videoMaxSize } });
+
+// Export multer configurations for file and video uploads
 module.exports = {
     uploadFile,
     uploadVideo

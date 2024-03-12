@@ -7,6 +7,8 @@ const router = require("express").Router();
  *  tags:
  *     -    name: Admin-Panel
  *          description: all methods and routes for course
+ *     -    name: Course(Admin-Panel)
+ *          description: all methods and routes for course
  *     -    name: Category(Admin-Panel)
  *          description: all methods and routes for category
  *     -    name: Blog(Admin-Panel)

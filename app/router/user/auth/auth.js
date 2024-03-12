@@ -4,7 +4,7 @@ const {AuthController} = require("../../../controller/user/auth/AuthController")
 // Importing the expressValidatorMapper middleware for error handling
 const {expressValidatorMapper} = require("../../../middleware/checkError");
 
-const {registerValidator} = require("../../../validation/user/auth/auth");
+const {registerValidator, loginValidator} = require("../../../validation/user/auth/auth");
 
 
 
@@ -50,6 +50,31 @@ const router = require("express").Router();
  */
 router.post("/register", registerValidator(), expressValidatorMapper, AuthController.register)
 
+// Route for user login
+
+/**
+ * @swagger
+ * /user/login:
+ *  post:
+ *      summary: login user
+ *      tags: [Authentication]
+ *      description: Login user in our system
+ *      parameters:
+ *          -   name: username
+ *              in: formData
+ *              type: string
+ *              required: true
+ *          -   name: password
+ *              in: formData
+ *              type: string
+ *              required: true
+ *      responses:
+ *          201:
+ *              description: Login was successfully
+ *          500:
+ *              description: Internal Server Error - Username or Password was wrong
+ */
+router.post("/login", loginValidator(), expressValidatorMapper, AuthController.login);
 
 module.exports = {
     AuthRoutes : router

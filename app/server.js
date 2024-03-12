@@ -2,6 +2,7 @@ const morgan = require("morgan");
 const cookieParser = require("cookie-parser");
 const swaggerUI = require("swagger-ui-express");
 const swaggerJsDoc = require("swagger-jsdoc");
+const {AllRoutes} = require("./router/router");
 
 module.exports = class Application{
 
@@ -114,7 +115,9 @@ module.exports = class Application{
     /**
      * Define application routes.
      */
-    createRoutes(){}
+    createRoutes(){
+        this.#app.use(AllRoutes);
+    }
 
 
     /**

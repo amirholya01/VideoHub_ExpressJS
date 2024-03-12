@@ -28,7 +28,8 @@ const BlogSchema = new mongoose.Schema({
     tags: {type: [String], default: []},
 
     // Categories associated with the blog post (reference to Category entity)
-    category: {type: [mongoose.Types.ObjectId], default: []}
+    category: {type: [mongoose.Types.ObjectId], default: []},
+    likes: {type: [mongoose.Types.ObjectId], default: []}
 },{
     // Timestamps for createdAt and updatedAt fields
     timestamps: true,

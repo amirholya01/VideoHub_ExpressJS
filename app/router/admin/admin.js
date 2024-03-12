@@ -1,5 +1,6 @@
 const { AdminApiCategoryRouter} = require("./category");
 const {AdminApiBlogRouter} = require("./blog");
+const {AdminApiCourseRouter} = require("./course");
 const router = require("express").Router();
 
 /**
@@ -14,6 +15,7 @@ const router = require("express").Router();
  *     -    name: Blog(Admin-Panel)
  *          description: All methods and routes for blog
  */
+router.use("/course", AdminApiCourseRouter)
 router.use("/category", AdminApiCategoryRouter);
 router.use("/blog", AdminApiBlogRouter);
 

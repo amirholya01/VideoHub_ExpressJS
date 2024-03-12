@@ -26,3 +26,6 @@ config/local.json
 
 # Ignore yarn's lock file
 yarn.lock
+
+
+.idea
